@@ -1,0 +1,16 @@
+# WEXA clean root-page URLs. Preserve all demo and asset routes.
+Options -MultiViews
+RewriteEngine On
+
+# Only browser requests for the old filename redirect; internal rewrites do not.
+RewriteCond %{THE_REQUEST} "\s/+index\.html(?:[?\s])" [NC]
+RewriteRule ^index\.html$ / [R=301,L]
+
+RewriteCond %{THE_REQUEST} "\s/+(?:izdelava-spletnih-strani|kontakt|o-nas|prenova-spletne-strani|projekti|storitve|vzdrzevanje-spletnih-strani|zasebnost)\.html(?:[?\s])" [NC]
+RewriteRule ^(izdelava-spletnih-strani|kontakt|o-nas|prenova-spletne-strani|projekti|storitve|vzdrzevanje-spletnih-strani|zasebnost)\.html$ /$1 [R=301,L]
+
+# Choose the URL without a trailing slash for these eight pages.
+RewriteRule ^(izdelava-spletnih-strani|kontakt|o-nas|prenova-spletne-strani|projekti|storitve|vzdrzevanje-spletnih-strani|zasebnost)/$ /$1 [R=301,L]
+
+# Keep the existing HTML files; map only explicitly listed page routes.
+RewriteRule ^(izdelava-spletnih-strani|kontakt|o-nas|prenova-spletne-strani|projekti|storitve|vzdrzevanje-spletnih-strani|zasebnost)$ $1.html [L]
